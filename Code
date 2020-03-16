@@ -1,0 +1,266 @@
+// ------------
+// Blink your name in Morse Code
+// ------------
+
+//  Created by Timothy Moore
+
+/*-------------
+
+This code is based off a Particle source code under the app name GettingStarted-BlinkLED
+Link found at URL: https://docs.particle.io/tutorials/hardware-projects/hardware-examples/argon/
+
+From this app, the LED variables and the setup() function will be the same as the source code above,
+as we will be using the same LED pin ports and both will be outputting a signal (i.e. emitting light).
+
+Where it differs is in the loop method. Rather than turn both LED's on every 1000ms, we want it to 
+succinctly blink in morse code a first name. In this case we are using my first name, TIMOTHY.
+-------------*/
+
+// ------------
+// HARDWARE SETUP
+// ------------
+
+/*-------------
+
+For this project, we are using a Particle Argon with WI-FI antenna, a breadboard, 3 different coloured
+male - male pin leads (we used blue, red and brown), a 220 ohm resistor (red-red-black-black-brown) 
+and a red LED. The breadboard works by dividing itself into rows, where anything placed on the same row will be 
+connected. This is the case for every point on the same side of the middle split (between column e and f). 
+This means 1a and 1c are connected, but 1a and 1j are not.
+
+
+The Particle Argon was placed on the breadboard covering from pin ports 1c at top left to port 18i at 
+bottom right, with the micro USB port hanging off the board (at the top). We will place the red wire 
+in port 2a, which is directly to the left of the 3V3 pin on the Argon, with its other end in the first 
+positive pin spot on the right of the board. This will give power to our Argon device via the micro USB.
+Next we will connect the external LED to the breadboard. It will be placed in ports 29j and 30j. We want the
+positive pin (longer pin on LED) to be in port 29j, as the shorter pin will be connected by a resistor to the 
+ground pin. This resistor is connected to 30f (red band end) and the bottom port in the negative column on the 
+left hand side. To connect this to the ground pin on the Argon (in port 4c), we connect the brown wire from port 
+4a to a port on the left hand negative column (we chose the fourth down). To complete this circuit, we need to get
+the power from the Argon to run to the positive pin of the LED, which is in row 29. We do this by connecting the 
+blue wire from 29f to the D6 pin on the Argon. The only port available for this was 10j. This means the external 
+LED runs out of pin D6 on the Argon, and the inbuilt LED runs of PIN D7 by default. 
+
+-------------*/
+
+//  global variables for the LED pin ports.
+int led1 = D6; //   This is the variable representing the pin on the Argon that the external LED is connected to (D6)
+
+int led2 = D7; //   This is the variable representing the pin on the Argon that the built in LED is connected to (D7)
+
+
+// The setup function runs only once, on initialization.
+void setup() {
+
+	/* `
+	pinMode is a built in function that tells the Argon what to expect from a certain pin. In this case, we want
+	both LED's to emit a light, therefore we declare a pin (using the variables above) and set it to OUTPUT (as we 
+	want the pin to output a light, rather than take in a message)
+    */
+    
+	pinMode(led1, OUTPUT);
+	pinMode(led2, OUTPUT);
+
+}
+
+/*  
+The loop function will run through the code that lays inside it, then repeat it from the start until the Argon is turned off.
+In this example we are wanting to spell out the name TIMOTHY in morse code. This was completed by converting each letter into 
+its morse code symbols, then making the light flash in a pattern that represents these symbols. Morse code works by using dashes ("-")
+and dots ("."). We can represent this using LED's by flashing for a longer time for a dash, and a shorter time for a dot. 
+This code can be adjusted to work for any name or word. If you want to work out what each letter in the alphabet is represented
+by, you can use this website: https://morsecode.world/international/morse2.html
+*/
+
+void loop() {
+    
+    
+	// Write the letter "T", which is represented as "-"
+	
+	//  Set the voltage as HIGH for the LED, turning it on
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+    //  Keep the LED on HIGH for this length in ms, determined by the symbol you want to represent ("-" = 800ms; "." = 300ms)
+	delay(800);
+
+    //  Set the voltage as LOW for the LED, turning it off
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+    //  Leave the LED on LOW for 1000ms when the letter has finished being broadcasted.
+	delay(1000);
+	
+	//Write the letter "I", which is represented by ".."
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(300);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+    
+    /*  When there is more than one symbol used to represent the letter (e.g. "I" is represented by "..", as above), 
+    use a gap of 300ms when the LED is on LOW, so the recipient knows that the letter is not complete.
+	*/
+	
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(300);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(1000);
+	
+	// Write the letter "M", which is represented by "--"
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(800);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(800);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(1000);	
+	
+	//Write the letter "O", which is represented by "---"
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(800);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(800);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(800);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(1000);	
+
+	// Write the letter "T", which is represented as "-"
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(800);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(1000);
+	
+	//Write the letter "H", which is represented by "...."
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(300);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(300);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(300);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(300);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(1000);
+	
+	//Write the letter "Y", which is represented by "-.--"
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(800);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(300);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(800);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(300);
+	
+	digitalWrite(led1, HIGH);
+	digitalWrite(led2, HIGH);
+
+	delay(800);
+
+	digitalWrite(led1, LOW);
+	digitalWrite(led2, LOW);
+
+	delay(1000);
+	
+}
